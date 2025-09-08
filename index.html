@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBuilder Data Insights</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.3em;
+            line-height: 1.6;
+        }
+        
+        .navigation {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .nav-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            padding: 30px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        .nav-card h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .nav-card p {
+            font-size: 1.1em;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+        
+        .icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #ecf0f1;
+        }
+        
+        .footer p {
+            color: #95a5a6;
+            font-size: 1em;
+        }
+        
+        @media (max-width: 768px) {
+            .navigation {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 BrainBuilder Data Insights</h1>
+            <p>Evidence-based research on why daily engagement matters for child brain development</p>
+        </div>
+        
+        <div class="navigation">
+            <a href="iteration2.html" class="nav-card">
+                <span class="icon">📊</span>
+                <h2>Interactive Charts</h2>
+                <p>Explore visual data showing brain growth, vocabulary development, neural connections, and energy allocation in early childhood</p>
+            </a>
+            
+            <a href="table.html" class="nav-card">
+                <span class="icon">📋</span>
+                <h2>Research Summary</h2>
+                <p>Detailed evidence table explaining why daily engagement matters, backed by credible scientific sources</p>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>Based on research from Harvard Center on the Developing Child, ZERO TO THREE, and First Things First</p>
+        </div>
+    </div>
+</body>
+</html>
