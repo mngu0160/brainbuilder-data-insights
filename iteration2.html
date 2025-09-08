@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBuilder Data Insights</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border: 2px solid #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            border-color: #667eea;
+        }
+        
+        .chart-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+        
+        .takeaway {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .source-link {
+            text-align: center;
+        }
+        
+        .source-link a {
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: background 0.3s ease;
+        }
+        
+        .source-link a:hover {
+            background: #2980b9;
+        }
+        
+        .counter-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .counter {
+            font-size: 4em;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        
+        .counter-label {
+            font-size: 1.2em;
+            color: #7f8c8d;
+        }
+        
+        .energy-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 300px;
+        }
+        
+        .energy-pie {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .baby-pie {
+            background: conic-gradient(#e74c3c 0% 60%, #ecf0f1 60% 100%);
+        }
+        
+        .adult-pie {
+            background: conic-gradient(#3498db 0% 20%, #ecf0f1 20% 100%);
+        }
+        
+        .pie-label {
+            margin-top: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Data Insights</h1>
+            <p>Evidence-based research on why daily engagement matters</p>
+        </div>
+        
+        <div class="charts-grid">
+            <!-- Chart 1: Brain Growth -->
+            <div class="chart-card">
+                <div class="chart-title">Brain Growth Race (0-5 years)</div>
+                <div class="chart-container">
+                    <canvas id="brainGrowthChart"></canvas>
+                </div>
+                <div class="takeaway">
+                    Your child's brain doubles in size by age 1 - every day counts!
+                </div>
+                <div class="source-link">
+                    <a href="https://www.firstthingsfirst.org/early-childhood-matters/brain-development/" target="_blank">View Source: First Things First</a>
+                </div>
+            </div>
+            
+            <!-- Chart 2: Word Power -->
+            <div class="chart-card">
+                <div class="chart-title">Daily Talk = Word Power</div>
+                <div class="chart-container">
+                    <canvas id="wordPowerChart"></canvas>
+                </div>
+                <div class="takeaway">
+                    Just talking daily gives your child 300 more words by age 2
+                </div>
+                <div class="source-link">
+                    <a href="https://www.zerotothree.org/resource/distillation/22-statistics-you-need-to-know-about-childhood-brain-development/" target="_blank">View Source: ZERO TO THREE</a>
+                </div>
+            </div>
+            
+            <!-- Chart 3: Neural Connections -->
+            <div class="chart-card">
+                <div class="chart-title">Neural Connection Speed</div>
+                <div class="counter-container">
+                    <div class="counter" id="connectionCounter">0</div>
+                    <div class="counter-label">connections per second</div>
+                </div>
+                <div class="takeaway">
+                    Your baby's brain creates 1 million connections every second
+                </div>
+                <div class="source-link">
+                    <a href="https://developingchild.harvard.edu/resources/inbriefs/inbrief-science-of-ecd/" target="_blank">View Source: Harvard Center</a>
+                </div>
+            </div>
+            
+            <!-- Chart 4: Energy Allocation -->
+            <div class="chart-card">
+                <div class="chart-title">Energy Allocation: Baby vs Adult</div>
+                <div class="energy-container">
+                    <div>
+                        <div class="energy-pie baby-pie">60%<br>Brain</div>
+                        <div class="pie-label">Baby</div>
+                    </div>
+                    <div>
+                        <div class="energy-pie adult-pie">20%<br>Brain</div>
+                        <div class="pie-label">Adult</div>
+                    </div>
+                </div>
+                <div class="takeaway">
+                    60% of your baby's energy goes to building their brain
+                </div>
+                <div class="source-link">
+                    <a href="https://www.zerotothree.org/resource/distillation/22-statistics-you-need-to-know-about-childhood-brain-development/" target="_blank">View Source: ZERO TO THREE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart 1: Brain Growth
+        const ctx1 = document.getElementById('brainGrowthChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['Birth', '1 Year', '2 Years', '3 Years', '4 Years', '5 Years'],
+                datasets: [{
+                    label: 'Brain Size (% of Adult)',
+                    data: [25, 50, 65, 80, 87, 90],
+                    borderColor: '#e74c3c',
+                    backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#e74c3c',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 3,
+                    pointRadius: 8,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Brain Size (% of Adult Brain)',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            color: '#2c3e50'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Age',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            color: '#2c3e50'
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        });
+
+        // Chart 2: Word Power
+        const ctx2 = document.getElementById('wordPowerChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Normal Development', 'Daily Talk'],
+                datasets: [{
+                    label: 'Words Known at Age 2',
+                    data: [500, 800],
+                    backgroundColor: ['#95a5a6', '#27ae60'],
+                    borderColor: ['#7f8c8d', '#229954'],
+                    borderWidth: 2,
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Vocabulary Size at Age 2',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            color: '#2c3e50'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' words';
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Development Type',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            color: '#2c3e50'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 3: Neural Connection Counter
+        let counter = 0;
+        const target = 1000000;
+        const increment = target / 100;
+        
+        function updateCounter() {
+            counter += increment;
+            if (counter >= target) {
+                counter = target;
+                document.getElementById('connectionCounter').textContent = '1,000,000';
+                setTimeout(() => {
+                    counter = 0;
+                    animateCounter();
+                }, 2000);
+            } else {
+                document.getElementById('connectionCounter').textContent = Math.floor(counter).toLocaleString();
+                requestAnimationFrame(updateCounter);
+            }
+        }
+        
+        function animateCounter() {
+            counter = 0;
+            updateCounter();
+        }
+        
+        animateCounter();
+    </script>
+</body>
+</html>
